@@ -7,6 +7,7 @@ import time
 import sys
 import scraperwiki
 import os
+import datetime
 
 class CalendarScraper:
 
