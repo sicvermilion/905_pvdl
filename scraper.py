@@ -53,7 +53,7 @@ class CalendarScraper:
 	def crawl(self):
 		if 'MORPH_SEAGULL' in os.environ:
 			api_key = os.environ['MORPH_SEAGULL']
-		r = requests.get("https://api.morph.io/sicvermilion/airbnb_scraper_1/data.json?key="+ api_key +"&query=select%20*%20from%20'data'%20limit%203")
+		r = requests.get("https://api.morph.io/sicvermilion/airbnb_scraper_1/data.json?key="+ api_key +"&query=select%20*%20from%20'data'%20limit%203", verify=False)
 		js = json.loads(r.content)
 		for listing in js:
 			scraperwiki.sqlite.execute("INSERT OR IGNORE INTO swdata VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",\
