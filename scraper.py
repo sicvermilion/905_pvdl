@@ -56,7 +56,7 @@ class CalendarScraper:
 		r = requests.get("https://api.morph.io/sicvermilion/airbnb_scraper_1/data.json?key="+ api_key +"&query=select%20*%20from%20'data'%20limit%203", verify=False)
 		js = json.loads(r.content)
 		for listing in js:
-			scraperwiki.sqlite.execute("INSERT OR IGNORE INTO swdata VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",\
+			scraperwiki.sqlite.execute("INSERT OR IGNORE INTO swdata VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",\
 				[listing['id'], listing['user_id'], listing['name'], listing['address'], listing['lat'], listing['lng'],listing['price_native'], listing['property_type'], listing['user_name'], listing['room_type_category'], listing['url'], listing['picture_url'],0,0,time.strftime('%Y-%m-%d %H:%M:%S'),1])
 			scraperwiki.sqlite.commit()
 			qwerty = self.cal_status(listing['id'])
