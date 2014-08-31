@@ -7,7 +7,6 @@ import time
 import sys
 import scraperwiki
 import os
-import datetime
 
 class CalendarScraper:
 
@@ -58,13 +57,13 @@ class CalendarScraper:
 		js = json.loads(r.content)
 		for listing in js:
 			scraperwiki.sqlite.execute("INSERT OR IGNORE INTO swdata VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",\
-				[listing['id'], listing['user_id'], listing['name'], listing['address'], listing['lat'], listing['lng'],listing['price_native'], listing['property_type'], listing['user_name'], listing['room_type_category'], listing['url'], listing['picture_url'],0,0,datetime.utcnow(),1])
+				[listing['id'], listing['user_id'], listing['name'], listing['address'], listing['lat'], listing['lng'],listing['price_native'], listing['property_type'], listing['user_name'], listing['room_type_category'], listing['url'], listing['picture_url'],0,0,time.strftime('%Y-%m-%d %H:%M:%S'),1])
 			scraperwiki.sqlite.commit()
 			qwerty = self.cal_status(listing['id'])
 			if qwerty == 'True':
-				scraperwiki.sqlite.execute("UPDATE swdata SET tracking_count=tracking_count+1, last_tracking=? WHERE id=?", [datetime.utcnow,listing['id']])
+				scraperwiki.sqlite.execute("UPDATE swdata SET tracking_count=tracking_count+1, last_tracking=? WHERE id=?", [time.strftime('%Y-%m-%d %H:%M:%S'),listing['id']])
 			elif qwerty == 'False':
-				scraperwiki.sqlite.execute("UPDATE swdata SET tracking_count=tracking_count+1, last_tracking=?, income=income+? WHERE id=?", [datetime.utcnow, listing['price'], listing['id']])
+				scraperwiki.sqlite.execute("UPDATE swdata SET tracking_count=tracking_count+1, last_tracking=?, income=income+? WHERE id=?", [time.strftime('%Y-%m-%d %H:%M:%S'), listing['price'], listing['id']])
 			elif qwerty == 'Error':
 				scraperwiki.sqlite.execute("UPDATE swdata SET status=0 WHERE id=?", [listing['id']])
 			scraperwiki.sqlite.commit()
