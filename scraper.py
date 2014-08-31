@@ -6,6 +6,7 @@ import random
 import time
 import sys
 import scraperwiki
+import os
 
 class CalendarScraper:
 
