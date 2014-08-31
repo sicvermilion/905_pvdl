@@ -62,7 +62,7 @@ class CalendarScraper:
 			elif qwerty == 'False':
 				scraperwiki.sqlite.execute("UPDATE swdata SET tracking_count=tracking_count+1, last_tracking=?, income=income+? WHERE id=?", [datetime.utcnow, listing['price'], listing['id']])
 			elif qwerty == 'Error':
-				scraperwiki.sqlite.execute("UPDATE swdata SET status=0 WHERE id=?", [listing['id'])
+				scraperwiki.sqlite.execute("UPDATE swdata SET status=0 WHERE id=?", [listing['id']])
 			scraperwiki.sqlite.commit()
 
 if __name__ == "__main__":
