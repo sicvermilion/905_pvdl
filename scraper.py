@@ -50,7 +50,8 @@ class CalendarScraper:
 		except:
 			return "Error"
 
-	def crawl(self,api_key):
+	def crawl(self):
+		api_key = os.environ['MORPH_SEAGULL']
 		r = requests.get("https://api.morph.io/sicvermilion/airbnb_scraper_1/data.json?key=%s&query=select%20*%20from%20'data'%20limit%203" % api_key)
 		js = json.loads(r.content)
 		for listing in js:
@@ -67,9 +68,8 @@ class CalendarScraper:
 			scraperwiki.sqlite.commit()
 
 if __name__ == "__main__":
-	api_key = os.environ['MORPH_SEAGULL']
 	scraperwiki.sqlite.execute('CREATE TABLE IF NOT EXISTS swdata (id INT PRIMARY KEY, user_id INT, name TEXT, address TEXT, lat REAL, lng REAL,price_native INT, property_type TEXT, user_name TEXT, room_type_category TEXT, url TEXT,picture_url TEXT, income INT, tracking_count INT, last_tracking DATE, status INT)')
 	scraperwiki.sqlite.commit()
 	d = CalendarScraper()
-	d.crawl(api_key)
+	d.crawl()
 	
