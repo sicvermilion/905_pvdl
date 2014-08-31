@@ -66,8 +66,9 @@ class CalendarScraper:
 			scraperwiki.sqlite.commit()
 
 if __name__ == "__main__":
+	api_key = os.environ['MORPH_SEAGULL']
 	scraperwiki.sqlite.execute('CREATE TABLE IF NOT EXISTS swdata (id INT PRIMARY KEY, user_id INT, name TEXT, address TEXT, lat REAL, lng REAL,price_native INT, property_type TEXT, user_name TEXT, room_type_category TEXT, url TEXT,picture_url TEXT, income INT, tracking_count INT, last_tracking DATE, status INT)')
 	scraperwiki.sqlite.commit()
 	d = CalendarScraper()
-	d.crawl(MORPH_SEAGULL)
+	d.crawl(api_key)
 	
